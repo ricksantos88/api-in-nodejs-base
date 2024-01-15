@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: db_main_cv_postgres
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "db_main_postgres"
+    ports:
+      - "5431:5432"
+    volumes:
+      ## For Windows users: it is highly recommended run docker on WSL2 otherwise
+      ## YOU MIGHT HAVE PROBLEMS WITH THE BIND MOUNT (C:\Projetos\PNLD\Volumes\RNPE)
+      - C:\Projetos\CV\Volumes\MAIN:/var/lib/postgresql/data

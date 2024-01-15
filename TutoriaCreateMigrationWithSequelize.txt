@@ -1,0 +1,58 @@
+1 - install (with yarn or npm)
+    yarn add sequelize
+
+2 - configure .sequelizerc in rootpath
+    `
+        const { resolve } = require('path');
+
+        module.exports = {
+            config: resolve(__dirname, 'src', 'config', 'database.js'),
+            'models-path': resolve(__dirname, 'src', 'app', 'models'),
+            'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
+            'seeders-path': resolve(__dirname, 'src', 'database', 'seeds'),
+        };
+    `
+3 - install sequelize-cli in for developer dependencies
+    yarn add sequelize-cli -D
+
+4 - install
+    yarn add pg pg-hstore
+
+5 - in directory source(src) create folders config and database, in database create folder migrations,
+in config folder create archive database.js, in database.js your database access settings will remain
+in this case configured for a postgres base
+    `
+        module.exports = {
+        dialect: 'postgres',
+        host: 'localhost',
+        username: 'postgres',
+        password: 'postgres',
+        database: 'postgres',
+        define: {
+            timestamps: true,
+            underscored: true,
+            underscoredAll: true,
+        },
+    `
+}
+
+6 - create your first migration
+    yarn sequelize migration:create --name=create-users
+
+    obs: pode ser feito usando npx
+    npx sequelize-cli migration:generate --name create_roles_table
+
+
+    * in the migration folder, the file of your first migration will be created
+    * https://sequelize.org/master/manual/migrations.html
+
+7 - run your migration
+    yarn sequelize db:migrate
+
+    obs: pode ser feito usando npx
+    npx sequelize db:migrate
+
+
+obs:
+    1 - generate seed => yarn sequelize seed:generate --name=dados_tabela_perfil_recurso
+    2 - run one seed  => yarn sequelize db:seed --seed 20201229143659-dados_tabela_perfil_recurso.js
